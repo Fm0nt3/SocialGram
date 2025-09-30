@@ -187,7 +187,68 @@
             object-fit: cover;
         }
         
+        /* Suggerimenti */
+        .suggestions-section {
+            flex: 1;
+            max-width: 320px;
+        }
         
+        .suggestions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .suggestions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #8e8e8e;
+        }
+        
+        .see-all {
+            font-size: 12px;
+            font-weight: 600;
+            color: #262626;
+            text-decoration: none;
+        }
+        
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .suggestion-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        
+        .suggestion-info {
+            flex: 1;
+        }
+        
+        .suggestion-username {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .suggestion-text {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+        
+        .follow-btn {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0095f6;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
         
         /* Login page */
         .login-container {
@@ -347,6 +408,16 @@
                 </div>
                 <div class="profile-posts" id="profile-posts">
                     <!-- I post verranno inseriti qui dinamicamente -->
+                </div>
+            </section>
+
+            <section class="suggestions-section">
+                <div class="suggestions-header">
+                    <div class="suggestions-title">Suggerimenti per te</div>
+                    <a href="#" class="see-all">Visualizza tutti</a>
+                </div>
+                <div id="suggestions-list">
+                    <!-- I suggerimenti verranno inseriti qui dinamicamente -->
                 </div>
             </section>
         </main>

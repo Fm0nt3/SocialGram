@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialGram - Il tuo social network</title>
+    <style>
+        /* Reset e stili base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: #fafafa;
+            color: #262626;
+        }
+        
+        /* Header */
+        header {
+            background-color: white;
+            border-bottom: 1px solid #dbdbdb;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 975px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 54px;
+        }
+        
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+            color: #262626;
+            text-decoration: none;
+        }
+        
+        .search-container {
+            position: relative;
+        }
+        
+        .search-input {
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            padding: 5px 10px;
+            width: 215px;
+            font-size: 14px;
+            color: #262626;
+        }
+        
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 101;
+        }
+        
+        .search-result-item {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .search-result-item:hover {
+            background-color: #fafafa;
+        }
+        
+        .search-result-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        
+        .search-result-username {
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-icon {
+            margin-left: 22px;
+            font-size: 22px;
+            color: #262626;
+            text-decoration: none;
+        }
+        
+        /* Main content */
+        main {
+            max-width: 935px;
+            margin: 88px auto 30px;
+            padding: 0 20px;
+            display: flex;
+            gap: 28px;
+        }
+        
+        /* Profilo utente */
+        .profile-section {
+            flex: 2;
+        }
+        
+        .profile-header {
+            display: flex;
+            margin-bottom: 44px;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-right: 30px;
+            object-fit: cover;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-username {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stat {
+            margin-right: 40px;
+        }
+        
+        .profile-stat-value {
+            font-weight: 600;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .profile-bio {
+            line-height: 1.5;
+        }
+        
+        .profile-posts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        
+        .post {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 3px;
+        }
+        
+        .post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Suggerimenti */
+        .suggestions-section {
+            flex: 1;
+            max-width: 320px;
+        }
+        
+        .suggestions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .suggestions-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #8e8e8e;
+        }
+        
+        .see-all {
+            font-size: 12px;
+            font-weight: 600;
+            color: #262626;
+            text-decoration: none;
+        }
+        
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .suggestion-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+        
+        .suggestion-info {
+            flex: 1;
+        }
+        
+        .suggestion-username {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .suggestion-text {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+        
+        .follow-btn {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0095f6;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Login page */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fafafa;
+        }
+        
+        .login-box {
+            background-color: white;
+            border: 1px solid #dbdbdb;
+            padding: 30px 40px;
+            width: 350px;
+            text-align: center;
+        }
+        
+        .login-logo {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .login-input {
+            background-color: #fafafa;
+            border: 1px solid #dbdbdb;
+            border-radius: 3px;
+            padding: 9px 8px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
+        
+        .login-btn {
+            background-color: #0095f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 9px;
+            margin-top: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .login-btn:disabled {
+            background-color: #b2dffc;
+            cursor: default;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background-color: #dbdbdb;
+        }
+        
+        .divider-text {
+            margin: 0 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #8e8e8e;
+        }
+        
+        .signup-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .signup-link a {
+            color: #0095f6;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .error-message {
+            color: #ed4956;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pagina di login (visibile inizialmente) -->
+    <div id="login-page" class="login-container">
+        <div class="login-box">
+            <div class="login-logo">SocialGram</div>
+            <form class="login-form" id="login-form">
+                <input type="text" class="login-input" id="username" placeholder="Nome utente" required>
+                <input type="password" class="login-input" id="password" placeholder="Password" required>
+                <button type="submit" class="login-btn" id="login-button">Accedi</button>
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-text">OPPURE</div>
+                    <div class="divider-line"></div>
+                </div>
+                <div class="error-message" id="login-error">Nome utente o password non validi</div>
+            </form>
+        </div>
+        <div class="signup-link">
+            Non hai un account? <a href="#" id="signup-link">Registrati</a>
+        </div>
+    </div>
+
+    <!-- Pagina principale (nascosta inizialmente) -->
+    <div id="main-page" style="display: none;">
+        <header>
+            <div class="header-container">
+                <a href="#" class="logo">SocialGram</a>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="search-input" placeholder="Cerca">
+                    <div class="search-results" id="search-results">
+                        <!-- I risultati di ricerca verranno inseriti qui dinamicamente -->
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-icon">🏠</a>
+                    <a href="#" class="nav-icon">✉️</a>
+                    <a href="#" class="nav-icon">➕</a>
+                    <a href="#" class="nav-icon">❤️</a>
+                    <a href="#" id="profile-icon" class="nav-icon">👤</a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="profile-section">
+                <div class="profile-header">
+                    <img src="" alt="Avatar" class="profile-avatar" id="profile-avatar">
+                    <div class="profile-info">
+                        <div class="profile-username" id="profile-username">nomeutente</div>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="posts-count">0</span> post
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="followers-count">0</span> follower
+                            </div>
+                            <div class="profile-stat">
+                                <span class="profile-stat-value" id="following-count">0</span> seguiti
+                            </div>
+                        </div>
+                        <div class="profile-name" id="profile-name">Nome Completo</div>
+                        <div class="profile-bio" id="profile-bio">Bio dell'utente</div>
+                    </div>
+                </div>
+                <div class="profile-posts" id="profile-posts">
+                    <!-- I post verranno inseriti qui dinamicamente -->
+                </div>
+            </section>
+
+            <section class="suggestions-section">
+                <div class="suggestions-header">
+                    <div class="suggestions-title">Suggerimenti per te</div>
+                    <a href="#" class="see-all">Visualizza tutti</a>
+                </div>
+                <div id="suggestions-list">
+                    <!-- I suggerimenti verranno inseriti qui dinamicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Database degli utenti
+        const users = [
+            {
+                id: 1,
+                username: "mario_rossi",
+                password: "password123",
+                name: "Mario Rossi",
+                bio: "Fotografo amatoriale | Viaggiatore | Roma",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                posts: [
+                    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                ],
+                followers: 254,
+                following: 189
+            },
+            {
+                id: 2,
+                username: "laura_bianchi",
+                password: "password123",
+                name: "Laura Bianchi",
+                bio: "Designer | Amante dell'arte | Milano",
+                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                posts: [
+                    "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1513366208864-87536b8bd7b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                ],
+                followers: 432,
+                following: 287
+            },
+            {
+                id: 3,
+                username: "andrea_verdi",
+                password: "password123",
+                name: "Andrea Verdi",
+                bio: "Sviluppatore software | Appassionato di tecnologia | Torino",
+                avatar: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                posts: [
+                    "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                ],
+                followers: 187,
+                following: 243
+            },
+            {
+                id: 4,
+                username: "chiara_esposito",
+                password: "password123",
+                name: "Chiara Esposito",
+                bio: "Studentessa universitaria | Amante dei libri | Napoli",
+                avatar: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                posts: [
+                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                ],
+                followers: 321,
+                following: 156
+            },
+            {
+                id: 5,
+                username: "francesco_russo",
+                password: "password123",
+                name: "Francesco Russo",
+                bio: "Chef | Food blogger | Firenze",
+                avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                posts: [
+                    "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                    "https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                ],
+                followers: 567,
+                following: 198
+            }
+        ];
+
+        // Variabili globali
+        let currentUser = null;
+        const loginPage = document.getElementById('login-page');
+        const mainPage = document.getElementById('main-page');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        const profileUsername = document.getElementById('profile-username');
+        const profileName = document.getElementById('profile-name');
+        const profileBio = document.getElementById('profile-bio');
+        const profileAvatar = document.getElementById('profile-avatar');
+        const postsCount = document.getElementById('posts-count');
+        const followersCount = document.getElementById('followers-count');
+        const followingCount = document.getElementById('following-count');
+        const profilePosts = document.getElementById('profile-posts');
+        const suggestionsList = document.getElementById('suggestions-list');
+
+        // Gestione del login
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Verifica credenziali
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Login riuscito
+                currentUser = user;
+                loginPage.style.display = 'none';
+                mainPage.style.display = 'block';
+                loadUserProfile(user);
+                loadSuggestions(user);
+            } else {
+                // Login fallito
+                loginError.style.display = 'block';
+            }
+        });
+
+        // Funzione per caricare il profilo utente
+        function loadUserProfile(user) {
+            profileUsername.textContent = user.username;
+            profileName.textContent = user.name;
+            profileBio.textContent = user.bio;
+            profileAvatar.src = user.avatar;
+            postsCount.textContent = user.posts.length;
+            followersCount.textContent = user.followers;
+            followingCount.textContent = user.following;
+            
+            // Carica i post
+            profilePosts.innerHTML = '';
+            user.posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'post';
+                postElement.innerHTML = `<img src="${post}" alt="Post">`;
+                profilePosts.appendChild(postElement);
+            });
+        }
+
+        // Funzione per caricare i suggerimenti
+        function loadSuggestions(currentUser) {
+            suggestionsList.innerHTML = '';
+            
+            // Filtra gli utenti per escludere l'utente corrente
+            const otherUsers = users.filter(user => user.id !== currentUser.id);
+            
+            // Prende 4 utenti casuali come suggerimenti
+            const shuffled = otherUsers.sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 4);
+            
+            selected.forEach(user => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                suggestionItem.innerHTML = `
+                    <img src="${user.avatar}" alt="Avatar" class="suggestion-avatar">
+                    <div class="suggestion-info">
+                        <div class="suggestion-username">${user.username}</div>
+                        <div class="suggestion-text">Ti segue</div>
+                    </div>
+                    <button class="follow-btn">Segui</button>
+                `;
+                suggestionsList.appendChild(suggestionItem);
+            });
+        }
+
+        // Funzione di ricerca
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            // Filtra gli utenti in base alla query
+            const filteredUsers = users.filter(user => 
+                user.username.toLowerCase().includes(query) || 
+                user.name.toLowerCase().includes(query)
+            );
+            
+            // Mostra i risultati
+            searchResults.innerHTML = '';
+            
+            if (filteredUsers.length > 0) {
+                filteredUsers.forEach(user => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.innerHTML = `
+                        <img src="${user.avatar}" alt="Avatar" class="search-result-avatar">
+                        <div class="search-result-username">${user.username}</div>
+                    `;
+                    resultItem.addEventListener('click', function() {
+                        // Quando si clicca su un risultato, carica quel profilo
+                        loadUserProfile(user);
+                        searchInput.value = '';
+                        searchResults.style.display = 'none';
+                    });
+                    searchResults.appendChild(resultItem);
+                });
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Chiude i risultati di ricerca quando si clicca altrove
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // Simula la registrazione (solo per demo)
+        document.getElementById('signup-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('La registrazione non è implementata in questa demo. Usa uno degli account di esempio:\n\n' +
+                  users.map(u => `${u.username} / password123`).join('\n'));
+        });
+    </script>
+</body>
+</html>

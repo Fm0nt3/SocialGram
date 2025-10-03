@@ -233,15 +233,20 @@
         }
         
         .modal-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px;
-            font-size: 14px;
-            line-height: 1.5;
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+        }
+        
+        .caption-text {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .post-date {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-top: 8px;
         }
         
         /* Login page */
@@ -412,6 +417,7 @@
             <div class="modal-content">
                 <img src="" alt="Post ingrandito" class="modal-image" id="modal-image">
                 <div class="modal-caption" id="modal-caption"></div>
+                <div class="post-date" id="modal-date"></div>
             </div>
         </div>
     </div>
@@ -517,15 +523,17 @@
                 posts: [
                     {
                         image: "social-network/images/avatars/monastero.jpg",
-                        caption: "Il monastero"
+                        caption: "Il monastero",
+                        date: "Pubblicato il bsbvauba"
                     },
                     {
                         image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Linee di codice che prendono vita 🚀 #programmazione #coding"
                     },
                     {
-                        image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                        caption: "Il mio ambiente di sviluppo preferito 👨‍💻 #sviluppo #software"
+                        image: "social-network/images/avatars/monastero.jpg",
+                        caption: "Il monastero"
+                        date: "Pubblicato il 14 Maggio 2022"
                     }
                 ],
                 followers: 136,
@@ -553,6 +561,7 @@
         const postModal = document.getElementById('post-modal');
         const modalImage = document.getElementById('modal-image');
         const modalCaption = document.getElementById('modal-caption');
+        const modalDate = document.getElementById('modal-date');
         const modalClose = document.querySelector('.modal-close');
 
         // Gestione del login
@@ -607,6 +616,7 @@
         function openPostModal(imageSrc, caption) {
             modalImage.src = imageSrc;
             modalCaption.textContent = caption;
+            modalDate.textContent = post.date;
             postModal.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Disabilita lo scroll
         }

@@ -124,6 +124,7 @@
         .profile-header {
             display: flex;
             margin-bottom: 44px;
+            flex-wrap: wrap;
         }
         
         .profile-avatar {
@@ -132,10 +133,12 @@
             border-radius: 50%;
             margin-right: 30px;
             object-fit: cover;
+            flex-shrink: 0;
         }
         
         .profile-info {
             flex: 1;
+            min-width: 250px;
         }
         
         .profile-username {
@@ -147,10 +150,12 @@
         .profile-stats {
             display: flex;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .profile-stat {
             margin-right: 40px;
+            margin-bottom: 10px;
         }
         
         .profile-stat-value {
@@ -180,6 +185,7 @@
             overflow: hidden;
             border-radius: 3px;
             cursor: pointer;
+            background-color: #f0f0f0;
         }
         
         .post img {
@@ -187,6 +193,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+            display: block;
         }
         
         .post:hover img {
@@ -224,18 +231,22 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
         
         .modal-content {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 100%;
+            max-height: 100%;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .modal-image {
             max-width: 100%;
-            max-height: 90vh;
+            max-height: 70vh;
             object-fit: contain;
+            display: block;
         }
         
         .modal-close {
@@ -252,10 +263,6 @@
         }
         
         .modal-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
             background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 15px;
@@ -264,10 +271,6 @@
         }
 
         .modal-date {
-            position: absolute;
-            bottom: 60px;
-            left: 0;
-            right: 0;
             background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 8px 15px;
@@ -283,13 +286,15 @@
             align-items: center;
             height: 100vh;
             background-color: #fafafa;
+            padding: 20px;
         }
         
         .login-box {
             background-color: white;
             border: 1px solid #dbdbdb;
             padding: 30px 40px;
-            width: 350px;
+            width: 100%;
+            max-width: 350px;
             text-align: center;
         }
         
@@ -364,6 +369,129 @@
             font-size: 14px;
             margin-top: 10px;
             display: none;
+        }
+
+        /* Media Queries per dispositivi mobili */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 15px;
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+            
+            .nav-icon {
+                margin-left: 15px;
+                font-size: 20px;
+            }
+            
+            main {
+                margin: 70px auto 20px;
+                padding: 0 15px;
+            }
+            
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .profile-info {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .profile-stat {
+                margin-right: 20px;
+                margin-left: 20px;
+            }
+            
+            .profile-posts {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding-top: 20px;
+            }
+            
+            .profile-username {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                height: 50px;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            .search-input {
+                width: 120px;
+                font-size: 12px;
+            }
+            
+            .nav-icon {
+                margin-left: 12px;
+                font-size: 18px;
+            }
+            
+            .profile-posts {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-username {
+                font-size: 22px;
+            }
+            
+            .profile-stat {
+                margin-right: 15px;
+                margin-left: 15px;
+            }
+            
+            .login-box {
+                padding: 20px 25px;
+            }
+        }
+
+        /* Stili per immagini mancanti */
+        .post img[src=""],
+        .post img:not([src]) {
+            display: none;
+        }
+        
+        .post:has(img[src=""])::before,
+        .post:has(img:not([src]))::before {
+            content: "Immagine non disponibile";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background-color: #e0e0e0;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
         }
     </style>
 </head>
@@ -499,7 +627,7 @@
                 password: "password123",
                 name: "Alicia Nieto",
                 bio: "Designer | Amante dell'arte | Milano",
-                avatar: "https://unsplash.com/it/foto/silhouette-di-donna-che-corre-durante-lora-doro-55bVEzGVnzY",
+                avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 posts: [
                     {
                         image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
@@ -561,7 +689,7 @@
                 avatar: "https://www.vecchio-monastero.ch/images/convento/vecchio-monastero-convento-02.jpg",
                 posts: [
                     {
-                        image: "social-network/images/avatars/monastero.jpg",
+                        image: "https://images.unsplash.com/photo-1599310625423-c02b79eec014?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Il monastero",
                         date: "2023-10-13"
                     },
@@ -585,35 +713,35 @@
                 password: "Ginevra",
                 name: "Lista Universo Activo",
                 bio: "Nuova Lista Universitaria per raggiungere un obiettivo comune. Aperti ad ascoltare tutti gli studenti!",
-                avatar: "social-network/images/avatars/LUA-profilo.jpg",
+                avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 posts: [
                     {
-                        image: "social-network/images/posts/Monastero/LUA-fotouni.jpg",
+                        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "La nostra amata Università",
                         date: "2023-10-11"
                     },
                     {
-                        image: "social-network/images/posts/Monastero/LUA-studio.jpg",
+                        image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Grazie all'aiuto e alle richieste degli studenti siamo riusciti ad aprire un nuovo spazio dedicato allo studio",
                         date: "2023-10-04"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Foresta incantata durante la mia ultima escursione 🌲 #foresta #avventura",
                         date: "2023-09-27"
                     },
                     {
-                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4u4Ags0FmztyHdvvbUJ6LPYn6KB1l694n1g&s",
+                        image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "E' o no la migliore università della Galiziaaa?",
                         date: "2023-09-21"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Falò di confronto e party aperto a tutti #divertirse",
                         date: "2023-09-16"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1541336032412-2048a678540d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Seguite la nostra pagina per aggiornamenti e votateci alle elezioni universitarie!",
                         date: "2023-09-10"
                     }
@@ -621,7 +749,6 @@
                 followers: 532,
                 following: 26
             },
-        
         ];
 
         // Variabili globali
@@ -690,10 +817,23 @@
             user.posts.forEach((post, index) => {
                 const postElement = document.createElement('div');
                 postElement.className = 'post';
-                postElement.innerHTML = `
-                    <img src="${post.image}" alt="Post ${index + 1}">
-                    <div class="post-date">${formatDate(post.date)}</div>
-                `;
+                
+                if (post.image && post.image.trim() !== '') {
+                    postElement.innerHTML = `
+                        <img src="${post.image}" alt="Post ${index + 1}" onerror="this.style.display='none'">
+                        <div class="post-date">${formatDate(post.date)}</div>
+                    `;
+                } else {
+                    postElement.innerHTML = `
+                        <div class="post-date">${formatDate(post.date)}</div>
+                    `;
+                    postElement.style.display = 'flex';
+                    postElement.style.alignItems = 'center';
+                    postElement.style.justifyContent = 'center';
+                    postElement.style.backgroundColor = '#e0e0e0';
+                    postElement.style.color = '#999';
+                    postElement.textContent = 'Immagine non disponibile';
+                }
                 
                 // Aggiungi evento click per aprire il modal
                 postElement.addEventListener('click', function() {
@@ -706,7 +846,12 @@
 
         // Funzione per aprire il modal del post
         function openPostModal(imageSrc, caption, date) {
-            modalImage.src = imageSrc;
+            if (imageSrc && imageSrc.trim() !== '') {
+                modalImage.src = imageSrc;
+                modalImage.style.display = 'block';
+            } else {
+                modalImage.style.display = 'none';
+            }
             modalCaption.textContent = caption;
             modalDate.textContent = formatDate(date);
             postModal.style.display = 'flex';
@@ -759,7 +904,7 @@
                     const resultItem = document.createElement('div');
                     resultItem.className = 'search-result-item';
                     resultItem.innerHTML = `
-                        <img src="${user.avatar}" alt="Avatar" class="search-result-avatar">
+                        <img src="${user.avatar}" alt="Avatar" class="search-result-avatar" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iMTYiIGZpbGw9IiNlMGUwZTAiLz4KPHN2Zz4KPC9zdmc+Cjwvc3ZnPgo='">
                         <div class="search-result-username">${user.username}</div>
                     `;
                     resultItem.addEventListener('click', function() {

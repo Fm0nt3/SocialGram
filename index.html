@@ -818,6 +818,9 @@
             
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+
+            console.log('Tentativo login:', username, password); // Debug
+            console.log('Utenti disponibili:', users.map(u => ({user: u.username, pass: u.password}))); // Debug
             
             // Verifica credenziali
             const user = users.find(u => u.username === username && u.password === password);

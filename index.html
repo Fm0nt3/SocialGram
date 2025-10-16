@@ -581,52 +581,52 @@
         const users = [
             {
                 id: 1,
-                username: "mario_rossi",
+                username: "socialgram",
                 password: "password123",
-                name: "Social Gram",
-                bio: "Account ufficiale del social network",
-                avatar: "",
+                name: "Mario Rossi",
+                bio: "Fotografo amatoriale | Viaggiatore | Roma",
+                avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 posts: [
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Una vista mozzafiato dalle montagne! 🏔️ #natura #paesaggio",
                         date: "2023-10-15"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "I colori del tramonto sono sempre magici 🌅 #tramonto #color",
                         date: "2023-10-10"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Foresta incantata durante la mia ultima escursione 🌲 #foresta #avventura",
                         date: "2023-10-05"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Il lago più cristallino che abbia mai visto! 💧 #lago #natura",
                         date: "2023-09-28"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Mattinata nebbiosa in campagna 🌫️ #nebbia #paesaggio",
                         date: "2023-09-20"
                     },
                     {
-                        image: "",
+                        image: "https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                         caption: "Cascata spettacolare durante il mio viaggio! 💦 #cascata #acqua",
                         date: "2023-09-15"
                     }
                 ],
-                followers: 251k,
-                following: 100
+                followers: 254,
+                following: 189
             },
             {
                 id: 2,
-                username: "aliciada<3",
-                password: "Ginevra",
-                name: "Alicia",
-                bio: "Sono proprio io",
+                username: "alicia_nieto",
+                password: "password123",
+                name: "Alicia Nieto",
+                bio: "Designer | Amante dell'arte | Milano",
                 avatar: "https://unsplash.com/it/foto/silhouette-di-donna-che-corre-durante-lora-doro-55bVEzGVnzY",
                 posts: [
                     {
@@ -655,8 +655,8 @@
             },
             {
                 id: 3,
-                username: "ettore_scala",
-                password: "Ginevra",
+                username: "davide_argento",
+                password: "password123",
                 name: "Davide Argento",
                 bio: "Sviluppatore software | Appassionato di tecnologia | Torino",
                 avatar: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
@@ -749,38 +749,6 @@
                 followers: 532,
                 following: 26
             },
-            {
-                id: 6,
-                username: "francois_delacroix",
-                password: "Ginevra",
-                name: "François Delacroix",
-                bio: "Pellegrino - Inseguo i miei sogni",
-                avatar: "social-network/images/avatars/francois.jpg",
-                posts: [
-                    {
-                        image: "social-network/images/posts/Monastero/paesaggio2.jpg",
-                        caption: "Il mio ultimo viaggio mi ha portato dove nessuno si aspettava",
-                        date: "2024-10-12"
-                    },
-                    {
-                        image: "social-network/images/posts/Monastero/pellegrinaggio.jpg",
-                        caption: "Sempre con lo zaino e in compagnia",
-                        date: "2020-05-05"
-                    },
-                    {
-                        image: "social-network/images/posts/Monastero/paesaggio",
-                        caption: "Non ci si ferma mai dal scoprire nuove mete",
-                        date: "2017-09-28"
-                    },
-                    {
-                        image: "social-network/images/posts/Monastero/pellegrinaggio2",
-                        caption: "Il mio primo post!",
-                        date: "2015-07-22"
-                    }
-                ],
-                followers: 91,
-                following: 127
-            }
         ];
 
         // Variabili globali
@@ -816,12 +784,9 @@
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Nasconde eventuali messaggi di errore da tentativi precedenti
-            loginError.style.display = 'none';
-
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value.trim();
-
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
             // Verifica credenziali
             const user = users.find(u => u.username === username && u.password === password);
             

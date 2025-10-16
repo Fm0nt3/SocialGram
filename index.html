@@ -493,13 +493,27 @@
             text-align: center;
             padding: 20px;
         }
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+            margin-right: 8px;
+            object-fit: contain;
+        }
+
+        .logo span, .login-logo span {
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
     <!-- Pagina di login (visibile inizialmente) -->
     <div id="login-page" class="login-container">
         <div class="login-box">
-            <div class="login-logo">SocialGram</div>
+            <div class="login-logo">
+                <img src="social-network/images/avatars/SocialGram.png" alt="Logo SocialGram" class="logo-icon">
+                <span>SocialGram</span>
+            </div>
             <form class="login-form" id="login-form">
                 <input type="text" class="login-input" id="username" placeholder="Nome utente" required>
                 <input type="password" class="login-input" id="password" placeholder="Password" required>
@@ -521,7 +535,10 @@
     <div id="main-page" style="display: none;">
         <header>
             <div class="header-container">
-                <a href="#" class="logo">SocialGram</a>
+                <a href="#" class="logo">
+                    <img src="social-network/images/avatars/SocialGram.png" alt="Logo SocialGram" class="logo-icon">
+                    <span>SocialGram</span>
+                </a>
                 <div class="search-container">
                     <input type="text" class="search-input" id="search-input" placeholder="Cerca">
                     <div class="search-results" id="search-results">

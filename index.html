@@ -1313,6 +1313,13 @@
             document.body.style.overflow = 'hidden'; // Disabilita lo scroll
         }
 
+        let zoomLevel = 1;
+        modalImage.addEventListener("click", function() {
+            zoomLevel = zoomLevel === 1 ? 2 : 1; // alterna 1x e 2x
+            modalImage.style.transform = `scale(${zoomLevel})`;
+            modalImage.style.transition = "transform 0.3s ease";
+        });
+
         // Funzione per chiudere il modal
         function closePostModal() {
             postModal.style.display = 'none';
